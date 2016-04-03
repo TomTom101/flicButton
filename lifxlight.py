@@ -7,6 +7,7 @@ from itertools import cycle
 
 BRIGHT = color.HSBK(0, 0, 1, 6500)
 DIM = color.HSBK(0, 0, .3, 3500)
+SUPER_DIM = color.HSBK(0, 0, .13, 2500)
 
 class LifxLights(object):
     def __init__(self):
@@ -24,7 +25,7 @@ class LifxLights(object):
         self._controls[flic_mac] = lifx_label
 
     def set_dim_ambient(self, light):
-        light.fade_color(DIM, 0)
+        light.fade_color(SUPER_DIM, 0)
 
     def next_ambient(self, light):
         #light.fade_color(self._ambients.next(), 2000)
