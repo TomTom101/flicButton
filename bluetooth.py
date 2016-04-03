@@ -11,20 +11,28 @@ class ButtonEventListener(flic.ButtonEventListener):
     def getHash(self):
         return "main"
 
-    def onButtonUpOrDown(self, deviceId, queued, timeDiff, isUp, isDown):
-        manager = client.getManager()
-        button = manager.getButton(deviceId)
-        print(button.getDeviceId() + (" up" if isUp else " down"))
-
-    def onButtonClickOrHold(self, deviceId, queued, timeDiff, isClick, isHold):
+    def onButtonSingleOrDoubleClickOrHold(self, deviceId, queued, timeDiff, isSingleClick, isDoubleClick, isHold):
+        """onButtonSingleOrDoubleClickOrHold(
+                const std::string& deviceId,
+                const bool& queued,
+                const int& timeDiff,
+                const bool& isSingleClick,
+                const bool& isDoubleClick,
+                const bool& isHold);
+        """
         manager = client.getManager()
         button = manager.getButton(deviceId)
         bedroom = lights.by_label("Deckenlampe")
-        if bedroom and isClick:
-            bedroom.power_toggle()
+        if bedroom:
+            if isSingleClick:
+                #bedroom.power_toggle()
+                print(button.getDeviceId() + " click ")
 
-        print(button.getDeviceId() + (" click" if isClick else " hold"))
+            if isDoubleClick:
+                print(button.getDeviceId() + " double click")
 
+            if isHold:
+                print(button.getDeviceId() + " hold")
 
 buttonEventListener = ButtonEventListener()
 
