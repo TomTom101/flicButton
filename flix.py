@@ -51,6 +51,13 @@ class ButtonEventListener(flic.ButtonEventListener):
 
             if isDoubleClick:
                 print(light.label + " double click")
+                """If the light is off, honey sleeping, set a dim color first and turn on"""
+                if not light.power:
+                    print "Light is off, quite!"
+                    lights.set_dim_ambient(light)
+                    light.fade_power(True, 0)
+
+                time.sleep(5)
                 light.fade_power(0, 2 * 60 * 1000)
 
             if isHold:
