@@ -46,15 +46,16 @@ class ButtonEventListener(flic.ButtonEventListener):
 
         if light:
             if isSingleClick:
+                print(light.label + " click")
                 light.power_toggle()
-                print(light.label + " click ")
 
             if isDoubleClick:
                 print(light.label + " double click")
+                light.fade_power(0, 2 * 60 * 1000)
 
             if isHold:
-                light.fade_power(0, 2 * 60 * 1000)
                 print(light.label + " hold")
+                lights.next_ambient(light)
         else:
             print "No light found for " + button.getDeviceId()
 
