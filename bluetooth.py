@@ -14,6 +14,24 @@ class ButtonEventListener(flic.ButtonEventListener):
     def getHash(self):
         return "main"
 
+    def onBatteryStatus(self, deviceId, battery):
+        print "Battery for " + deviceId + " is " + battery
+
+    def onReady(self, deviceId):
+        print "Ready!"
+
+    def onConnecting(self, deviceId):
+        print "Connecting to " + deviceId
+
+    def onConnect(self, deviceId):
+        print "Connected to " + deviceId
+
+    def onConnectionFail(self, deviceId):
+        print "Connection failed to " + deviceId
+
+    def onDisconnect(self, deviceId):
+        print "disconnected from " + deviceId
+
     def onButtonSingleOrDoubleClickOrHold(self, deviceId, queued, timeDiff, isSingleClick, isDoubleClick, isHold):
         """onButtonSingleOrDoubleClickOrHold(
                 const std::string& deviceId,
@@ -29,13 +47,14 @@ class ButtonEventListener(flic.ButtonEventListener):
 
         if light:
             if isSingleClick:
-                #bedroom.power_toggle()
+                light.power_toggle()
                 print(light.label + " click ")
 
             if isDoubleClick:
                 print(light.label + " double click")
 
             if isHold:
+                light.fade_power(0, 2 * 60 * 1000)
                 print(light.label + " hold")
 
 buttonEventListener = ButtonEventListener()
@@ -68,8 +87,8 @@ class UninitializedCallback(flic.CallbackBool):
     def callback(self):
         print("Uninitialized")
 
-subprocess.Popen(["./daemon", "-f", "flic.sqlite3"])
-time.sleep(2)
+#subprocess.Popen(["./daemon", "-f", "flic.sqlite3"])
+#time.sleep(5)
 init = InitializedCallback()
 uninit =  UninitializedCallback()
 client.start(init.getCallback(), uninit.getCallback())
