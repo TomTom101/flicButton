@@ -1,10 +1,13 @@
 #!/usr/bin/python
 
+import subprocess
+import time
 from flic import flic
 from lifxlight import LifxLights
 
 client = flic.Client()
 lights = LifxLights()
+lights.add_control("80:E4:DA:70:A1:C0", "Deckenlampe")
 
 class ButtonEventListener(flic.ButtonEventListener):
 
@@ -22,17 +25,18 @@ class ButtonEventListener(flic.ButtonEventListener):
         """
         manager = client.getManager()
         button = manager.getButton(deviceId)
-        bedroom = lights.by_label("Deckenlampe")
-        if bedroom:
+        light = lights.by_control(button.getDeviceId())
+
+        if light:
             if isSingleClick:
                 #bedroom.power_toggle()
-                print(button.getDeviceId() + " click ")
+                print(light.label + " click ")
 
             if isDoubleClick:
-                print(button.getDeviceId() + " double click")
+                print(light.label + " double click")
 
             if isHold:
-                print(button.getDeviceId() + " hold")
+                print(light.label + " hold")
 
 buttonEventListener = ButtonEventListener()
 
@@ -64,7 +68,8 @@ class UninitializedCallback(flic.CallbackBool):
     def callback(self):
         print("Uninitialized")
 
-
+subprocess.Popen(["./daemon", "-f", "flic.sqlite3"])
+time.sleep(2)
 init = InitializedCallback()
 uninit =  UninitializedCallback()
 client.start(init.getCallback(), uninit.getCallback())
