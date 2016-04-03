@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import subprocess
 import time
 from flic import flic
 from lifxlight import LifxLights
@@ -56,6 +55,8 @@ class ButtonEventListener(flic.ButtonEventListener):
             if isHold:
                 light.fade_power(0, 2 * 60 * 1000)
                 print(light.label + " hold")
+        else:
+            print "No light found for " + button.getDeviceId()
 
 buttonEventListener = ButtonEventListener()
 
@@ -87,8 +88,6 @@ class UninitializedCallback(flic.CallbackBool):
     def callback(self):
         print("Uninitialized")
 
-#subprocess.Popen(["./daemon", "-f", "flic.sqlite3"])
-#time.sleep(5)
 init = InitializedCallback()
 uninit =  UninitializedCallback()
 client.start(init.getCallback(), uninit.getCallback())

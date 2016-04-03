@@ -7,26 +7,24 @@ class LifxLights(object):
         self._controls = {}
         broadcast_addr = os.environ.get('LIFX_BROADCAST', '192.168.0.255')
 
-        # Start the client
-        self.lights = lifx.Client(broadcast=broadcast_addr)
+        self.lights = lifx.Client(broadcast=broadcast_addr, discoverpoll=120)
         time.sleep(1)
 
     def add_control(self, flic_mac, lifx_label):
         self._controls[flic_mac] = lifx_label
-
-    @staticmethod
-    def yield_first(iterable):
-        for item in iterable or []:
-            yield item
-            return
 
     def by_control(self, flic_mac):
         """Get the light controlled by that Flic MAC address"""
         label = self._controls[flic_mac]
         return self.by_label(label)
 
+    def __by_label(self, label):
+        """Using own filter to get around the last_seen limitation """
+        return filter(lambda d: d.label == label, self.lights._devices.values())
+
     def by_label(self, label):
         try:
-            return self.lights.by_label(label)[0]
+            return self.__by_label(label)[0]
         except IndexError:
+            print "Label " + label + " not found"
             return None
