@@ -9,7 +9,7 @@
 # Short-Description:    Run flicButton daemon
 ### END INIT INFO
 
-DIR=/home/pi/fliclib-linux-hci/bin/armv8l
+DIR=/home/pi/fliclib-linux-hci/bin/armv6l
 DAEMON=${DIR}/flicd
 DAEMON_OPTS="-f ${DIR}/flic.sqlite3"
 DAEMON_NAME=flix
