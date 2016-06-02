@@ -9,13 +9,13 @@
 # Short-Description:    Run flicButton daemon
 ### END INIT INFO
 
-DIR=/home/pi/flicButton
-DAEMON=${DIR}/daemon
+DIR=/home/pi/fliclib-linux-hci/bin/armv8l
+DAEMON=${DIR}/flicd
 DAEMON_OPTS="-f ${DIR}/flic.sqlite3"
-DAEMON_NAME=fliclifx
+DAEMON_NAME=flix
 
 # This next line determines what user the script runs as.
-DAEMON_USER=root
+DAEMON_USER=pi
 
 # The process ID of the script when it runs is stored here:
 PIDFILE=/var/run/$DAEMON_NAME.pid
@@ -49,7 +49,7 @@ case "$1" in
 
   *)
 
-  echo "Usage: /etc/init.d/fliclifx {start|stop}"
+  echo "Usage: /etc/init.d/flix {start|stop}"
   exit 1
   ;;
 esac
