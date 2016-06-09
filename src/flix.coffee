@@ -11,7 +11,7 @@ FlicScanner = fliclib.FlicScanner;
 
 client = new FlicClient("localhost", 5551);
 
-listenToButton(bdAddr) ->
+listenToButton = (bdAddr) ->
 	cc = new FlicConnectionChannel(bdAddr);
 	client.addConnectionChannel(cc);
 	cc.on "buttonUpOrDown", (clickType, wasQueued, timeDiff) ->

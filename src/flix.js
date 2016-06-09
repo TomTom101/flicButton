@@ -1,4 +1,4 @@
-var FlicClient, FlicConnectionChannel, FlicScanner, client, fliclib;
+var FlicClient, FlicConnectionChannel, FlicScanner, client, fliclib, listenToButton;
 
 fliclib = require("./fliclibNodeJs");
 
@@ -10,7 +10,7 @@ FlicScanner = fliclib.FlicScanner;
 
 client = new FlicClient("localhost", 5551);
 
-listenToButton(bdAddr)(function() {
+listenToButton = function(bdAddr) {
   var cc;
   cc = new FlicConnectionChannel(bdAddr);
   client.addConnectionChannel(cc);
@@ -25,7 +25,7 @@ listenToButton(bdAddr)(function() {
       disconnectReason: ""
     }));
   });
-});
+};
 
 client.once("ready", function() {
   console.log("Connected to daemon!");
