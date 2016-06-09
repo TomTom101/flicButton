@@ -9,9 +9,9 @@
 # Short-Description:    Run flicButton daemon
 ### END INIT INFO
 
-DIR=/home/pi/flix/bin/armv6l
-DAEMON=${DIR}/flicd
-DAEMON_OPTS="-f ${DIR}/flic.sqlite3"
+DIR=/home/pi/flix
+DAEMON=${DIR}/sdk/bin/armv6l/flicd
+DAEMON_OPTS="-f ${DIR}/db/flic.sqlite3"
 DAEMON_NAME=flix
 
 # This next line determines what user the script runs as.
