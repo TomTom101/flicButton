@@ -1,21 +1,21 @@
 #!/bin/sh -
 
 ### BEGIN INIT INFO
-# Provides:             fliclifx
-# Required-Start:
-# Required-Stop:
+# Provides:             flix
+# Required-Start:       $all
+# Required-Stop:        $all
 # Default-Start:        2 3 4 5
 # Default-Stop:         0 1 6
-# Short-Description:    Run flicButton daemon
+# Short-Description:    Run flix daemon
 ### END INIT INFO
 
 DIR=/home/pi/flix
 DAEMON=${DIR}/sdk/bin/armv6l/flicd
-DAEMON_OPTS="-f ${DIR}/db/flic.sqlite3"
+DAEMON_OPTS="-d -f ${DIR}/db/flic.sqlite3"
 DAEMON_NAME=flix
 
 # This next line determines what user the script runs as.
-DAEMON_USER=pi
+DAEMON_USER=root
 
 # The process ID of the script when it runs is stored here:
 PIDFILE=/var/run/$DAEMON_NAME.pid

@@ -1,6 +1,6 @@
 # flicButton
 
-chown pi:pi flifx.sh && chmod +x flix.sh
-sudo cp flifx.sh /etc/init.d/
-sudo update-rc.d flifx.sh defaults
-/etc/init.d/flifx start
+chown pi:pi flix.sh && chmod +x flix.sh
+sudo cp flix.sh /etc/init.d/
+sudo update-rc.d flix.sh defaults
+sudo /etc/init.d/flix.sh start
